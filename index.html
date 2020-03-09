@@ -11,6 +11,8 @@
       gtag('config', 'UA-129602100-1');
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/riot@3.13/riot+compiler.min.js"></script>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,57 +22,55 @@
     <link rel="stylesheet" href="style.css?v=4">
 
     <title>IM Standup - Imre Mehesz STANDup COMedian</title>
+
+    <script type="riot/tag">
+        <promo-header>
+          <section class="module parallax parallax-1" data-type="background" data-speed="10" style="background-image:url({ promoBgImg })">
+            <div class="parallax-container">
+              <h1 show={ showName }>I<span>mre</span> M<span>ehesz</span> </h1>
+              <h1 show={ showName }>STANDUP <span class="tilt">.COMedian</span></h1>
+            </div>
+          </section>
+
+          // code here
+          var UTIL = {}
+          UTIL.getPropFromDriveData = (data, prop) => {
+            let retval
+
+            for(let i=0; i<data.length; i++) {
+            // loop through the stuff, find the prop and return it
+              let[key,val] = data[i]
+
+              if (key == prop) {
+                retval = val
+                break
+              }
+            }
+
+            return retval
+          }
+
+          let tag = this
+          let defaultBgImg = "https://i.imgur.com/vD0Kur7.jpg"
+          let promoBgImg = defaultBgImg
+
+          this.promoBgImg = promoBgImg
+
+          $.get("https://sheets.googleapis.com/v4/spreadsheets/1H5h8zFTJUiDjd9ddo8qsJnqhYbEdpKH9Pj9-byY6fpE/values/Sheet1!A1:D500?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk", (data) => {
+            if (data && data.values) {
+              promoBgImg = UTIL.getPropFromDriveData(data.values, "promoBgImg")
+              tag.update({
+                promoBgImg: promoBgImg ? promoBgImg : defaultBgImg,
+                showName: promoBgImg ? false : true
+              })
+            }
+          })
+        </promo-header>
+      </script>
   </head>
   <body>
 
-
-
-<!--
-moo
-    <nav class="navbar navbar-expand-md navbar-dark bg-fade fixed-top">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">link 2</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav> -->
-<!-- <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-3">Fluid jumbotron</h1>
-    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-  </div>
-</div> -->
-<section class="module parallax parallax-1" data-type="background" data-speed="10">
-  <div class="parallax-container">
-    <h1>I<span>mre</span> M<span>ehesz</span> </h1>
-    <h1>STANDUP <span class="tilt">.COMedian</span></h1>
-  </div>
-</section>
+<promo-header></promo-header>
 
 <section  class="module content">
   <div class="parallax-container">
@@ -126,57 +126,10 @@ moo
     </div>
   </div>
 </section>
-<!--
-<section class="module parallax parallax-3" data-type="background" data-speed="10">
-  <div class="parallax-container">
-    <h1>Color</h1>
-  </div>
-</section>
-
-
-<section class="module content">
-  <div class="parallax-container">
-    <h2>Lorem Ipsum Dolor</h2>
-    <p>Lorem ipsum dolor...</p>
-  </div>
-</section> -->
-
-<!--
-    <footer class="footer"> 
-      <div class="container-fluid bg-primary">
-        <div class="row">
-          <div class="col-xs-6 col-md-4 left">
-    <p>&copy; MySite.com</p>
-        </div>
-          <div class="col-xs-6 col-md-4 left">
-    <a href="#">Terms &amp;Conditions</a>
-    <a href="#">About Us</a> 
-        </div>
-          <div class="col-xs-6 col-md-4 right">
-    <a href="#" class="btn btn-social-icon btn-twitter">
-    <span class="fa fa-twitter"></span>
-  </a>
-   <a href="#" class="btn btn-social-icon btn-facebook">
-    <span class="fa fa-facebook"></span>
-  </a>
-        <a href="#" class="btn btn-social-icon btn-instagram">
-    <span class="fa fa-instagram"></span>
-  </a>
-        </div>
-        </div>
-</div>
-    </footer>
-
-  -->
-
-
-
-
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
@@ -220,5 +173,10 @@ moo
       })
     
     </script>
+
+    <!-- mount normally -->
+	  <script>
+		  riot.mount('*')
+	  </script>
   </body>
 </html>
