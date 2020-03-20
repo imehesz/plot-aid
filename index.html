@@ -23,6 +23,55 @@
 
     <title>IM Standup - Imre Mehesz STANDup COMedian</title>
 
+    <script>
+        window.imxUTIL = {}
+
+        imxUTIL.getPropFromDriveData = (data, prop) => {
+            let retval
+
+            for(let i=0; i<data.length; i++) {
+            // loop through the stuff, find the prop and return it
+                let[key,val] = data[i]
+
+                if (key == prop) {
+                    retval = val
+                    break
+                }
+            }
+
+            return retval
+        }
+    </script>
+
+    <script type="riot/tag">
+        <yt-wrapper>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{ opts.ytid }" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </yt-wrapper>
+    </script>
+
+    <script type="riot/tag">
+        <youtube-list>
+            <virtual each={ytId in ytIds}>
+                <yt-wrapper ytId={ ytId }></yt-wrapper>
+            </virtual>
+
+            // code here
+            let tag = this
+            tag.ytIds = []
+
+            // TODO move and cache this somewhere
+            $.get("https://sheets.googleapis.com/v4/spreadsheets/1H5h8zFTJUiDjd9ddo8qsJnqhYbEdpKH9Pj9-byY6fpE/values/Sheet1!A1:D500?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk", (data) => {
+                if (data && data.values) {
+                    let ytVidsArr = imxUTIL.getPropFromDriveData(data.values, "ytVids")
+
+                    tag.update({
+                        ytIds: ytVidsArr.split(",")
+                    })
+                }
+            })
+        </youtube-list>
+    </script>
+
     <script type="riot/tag">
         <promo-header>
           <section class="module parallax parallax-1" data-type="background" data-speed="10" style="background-image:url({ promoBgImg })">
@@ -33,23 +82,6 @@
           </section>
 
           // code here
-          var UTIL = {}
-          UTIL.getPropFromDriveData = (data, prop) => {
-            let retval
-
-            for(let i=0; i<data.length; i++) {
-            // loop through the stuff, find the prop and return it
-              let[key,val] = data[i]
-
-              if (key == prop) {
-                retval = val
-                break
-              }
-            }
-
-            return retval
-          }
-
           let tag = this
           let defaultBgImg = "https://i.imgur.com/vD0Kur7.jpg"
           let promoBgImg = defaultBgImg
@@ -58,7 +90,7 @@
 
           $.get("https://sheets.googleapis.com/v4/spreadsheets/1H5h8zFTJUiDjd9ddo8qsJnqhYbEdpKH9Pj9-byY6fpE/values/Sheet1!A1:D500?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk", (data) => {
             if (data && data.values) {
-              promoBgImg = UTIL.getPropFromDriveData(data.values, "promoBgImg")
+              promoBgImg = imxUTIL.getPropFromDriveData(data.values, "promoBgImg")
               tag.update({
                 promoBgImg: promoBgImg ? promoBgImg : defaultBgImg,
                 showName: promoBgImg ? false : true
@@ -116,9 +148,7 @@
 
     <div class="row">
     <p class="col-md-6">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/P2fHBCY1bOs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/-SnDNmizUIM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/q5clsBqmssY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <youtube-list></youtube-list>
     </p>
     <p class="col-md-6">
       <a class="twitter-timeline" href="https://twitter.com/IMstandup?ref_src=twsrc%5Etfw">Tweets by IMstandup</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
