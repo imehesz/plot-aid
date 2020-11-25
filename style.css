@@ -178,3 +178,10 @@ html {
   .left {
     text-align: left;
   }
+
+  .calendar iframe,
+  .hbpro-map iframe {
+    width: 100%;
+    height: 750px;
+    border: 0;
+  }
