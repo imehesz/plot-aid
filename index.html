@@ -16,10 +16,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="Description" CONTENT="Imre Mehesz Standup Comedian, Comedy, Standup, Florida, Jokes, Funny">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css?v=20210423">
+    <link rel="stylesheet" href="style.css?v=20210423aaaaaaaaaaaaaaaa">
 
     <title>Imre Mehesz - Standup Comedian</title>
 
@@ -74,15 +75,16 @@
 
     <script type="riot/tag">
         <promo-header>
-          <section class="module content text-center" data-type="background" data-speed="10" style="">
+          <section class="module content" data-type="background" data-speed="10" style="">
             <div class="parallax-container">
-              <h1 show={ showTitle }>IMRE MEHESZ <small>comedian \\ actor \\ male model</small></h1>
+              <h1 show={ showTitle }>IMRE MEHESZ</h1> 
+              <small>comedian \\ actor \\ male model \\ blue steel</small>
               
               <br/>
               <br/>
 
               <p>
-                Listen to some random thoughts about babies, death and communism.
+                Fighting communism, death and babies one joke at a time.
 
                 <br/>
                 <br/>
@@ -244,8 +246,7 @@
 
             let randBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
 
-
-            $("body").css("background-image", `url(${randBg})`)
+            $("body").css("background-image", `url(${randBg}),url(${randBg})`)
         })
     
     </script>
