@@ -6,9 +6,14 @@ html {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 	background-color: #000;
-	font-family: fantasy;
+	font-family: arial;
 	color: #fff;
 	letter-spacing: 4px;
+    background-image: url(https://i.imgur.com/oNvlQsr.jpg);
+    background-repeat: repeat-y;
+    background-position: top;
+    background-attachment: fixed;
+    background-color: #ddd;
   }
 
   .jumbotron {
@@ -52,10 +57,9 @@ html {
   }
   section.module.content {
     padding: 40px 0;
-    background-color: none;
   }
   section.module.content:last-child {
-    margin-bottom: 60px;
+    margin-bottom: 0px;
   }
   section.module.parallax {
     padding: 240px 0;
@@ -69,11 +73,11 @@ html {
   }
   section.module.parallax h1 {
     color: #000;
-    font-size: 48px;
+    font-size: 54px;
     line-height: 1;
     font-weight: 700;
     text-align: center;
-    text-shadow: 0 0 10px white;
+    text-shadow: 0 0 10px #000;
   }
 
   section.module.parallax h1 span {
@@ -92,6 +96,38 @@ html {
     transform: rotate(-10deg);
   }
 
+  section.module small {
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  
+  section.module h1 {
+    font-size: 60px;
+    font-weight: bolder;
+  }
+
+  section.module h2 {
+    font-size: 36px;
+  }
+
+  section.module h1,
+  section.module h2 {
+    text-shadow: 0 0 10px #000;
+  }
+
+  section.module h2::first-letter {
+    background-color: #FF1493;
+    padding: 10px 15px;
+    text-shadow: none;
+  }
+
+  section.module p,
+  section.module ul {
+    background-color: rgba(0,0,0,0.75);
+    padding: 10px;
+    list-style: none;
+  }
+
   section.module {
     /* background-color: rgba(0,123,255,0.4); */
     background-color: rgba(0,0,0,0.2);
@@ -108,6 +144,11 @@ html {
   }
   section.module.parallax-4 {
     background-image: url("https://i.imgur.com/3OVC0Lw.jpg");
+  }
+
+  section.module .btn {
+    color: #fff;
+    background-color: #FF1493;
   }
 
   @media all and (min-width: 600px) {

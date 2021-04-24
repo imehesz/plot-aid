@@ -19,9 +19,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css?v=20201124">
+    <link rel="stylesheet" href="style.css?v=20210423">
 
-    <title>IM Standup - Imre Mehesz STANDup COMedian</title>
+    <title>Imre Mehesz - Standup Comedian</title>
 
     <script>
         window.imxUTIL = {}
@@ -74,10 +74,26 @@
 
     <script type="riot/tag">
         <promo-header>
-          <section class="module parallax parallax-1" data-type="background" data-speed="10" style="background-image:url({ promoBgImg })">
+          <section class="module content text-center" data-type="background" data-speed="10" style="">
             <div class="parallax-container">
-              <h1 show={ showTitle }>I<span>mre</span> M<span>ehesz</span> </h1>
-              <h1 show={ showTitle }>STANDUP <span class="tilt">.COMedian</span></h1>
+              <h1 show={ showTitle }>IMRE MEHESZ <small>comedian \\ actor \\ male model</small></h1>
+              
+              <br/>
+              <br/>
+
+              <p>
+                Listen to some random thoughts about babies, death and communism.
+
+                <br/>
+                <br/>
+                <a href="#bookme" class="btn btn-large">
+                    BOOK ME!
+                </a>
+                <br />
+                <br />
+              </p>
+
+
             </div>
           </section>
 
@@ -105,39 +121,26 @@
   </head>
   <body>
 
-<promo-header></promo-header>
+  <promo-header></promo-header>
 
 <section  class="module content">
   <div class="parallax-container">
     <h2>About</h2>
-    <p>40% father, 59% comedian, 1% bum/lover ... bumlover</p>
-  </div>
-</section>
-
-<section class="module parallax parallax-2" data-type="background" data-speed="10">
-  <div class="parallax-container">
-    <h1></h1>
+    <p>Imre started out in Jacksonville (FL) as a stand-up comedian and VO Actor. He's been through several comedy contests and featuring mostly in Florida with his Dark-Style jokes.</p>
   </div>
 </section>
 
 <section  class="module content">
   <div class="parallax-container">
     <h2>Show Dates / Calendar</h2>
-    <p>You can always catch me at random open-mics around JAX (FL) or come see me on a date below ... </p>
+    <p>You can always catch him at random open-mics around JAX (FL) or come see him on a date below ... </p>
     <p style="text-align:center;" class="calendar">
       <iframe src="https://calendar.google.com/calendar/embed?src=r81ehf906m133dgb942k6m9kao%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" height="600" frameborder="0" scrolling="no"></iframe>
     </p>
   </div>
 </section>
 
-<section class="module parallax parallax-3" data-type="background" data-speed="10">
-  <div class="parallax-container">
-    <h1></h1>
-  </div>
-</section>
-
-
-<section  class="module content">
+<section  class="module content d-none d-lg-block">
   <div class="parallax-container">
     <h2>Member of Hot Breath!PRO</h2>
     <p>
@@ -149,34 +152,38 @@
   </div>
 </section>
 
-
-<section class="module parallax parallax-4" data-type="background" data-speed="10">
-  <div class="parallax-container">
-    <h1></h1>
-  </div>
-</section>
-
+<a name="bookme"></a>
 <section class="module content">
   <div class="parallax-container">
-    <h2>Social / Contact</h2>
-    <p>
+    <h2>Bookings / Social</h2>
       <ul>
         <li>Sign up to my <a href="https://mailchi.mp/e41d5d556175/imstandup-newsletter">NEWSLETTER</a>! YASSSSSsss!</li>
         <li>Twitter: <a href="https://twitter.com/IMstandup" target="_blank">@IMstandup</a></li>
         <li>Facebook: <a href="https://facebook.com/IMstandup" target="_blank">IMstandup</a></li>
-        <li>Instagram: <a href="https://instagram.com/IMstandup2" target="_blank">IMstandup2</a></li>
+        <li>Instagram: <a href="https://instagram.com/imehesz" target="_blank">imehesz</a></li>
+        <li>TikTok: <a href="https://www.tiktok.com/@imstandup" target="_blank">IMstandup</a></li>
       </ul>
-    </p>
-
-    <div class="row">
-    <p class="col-md-6">
-          <youtube-list></youtube-list>
-    </p>
-    <p class="col-md-6">
-      <a class="twitter-timeline" href="https://twitter.com/IMstandup?ref_src=twsrc%5Etfw" data-tweet-limit="6">Tweets by IMstandup</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </p>
-    </div>
   </div>
+</section>
+
+<section class="module content">
+    <div class="parallax-container">
+        <h2>Clips</h2>
+
+        <p class="text-center">
+            <youtube-list></youtube-list>
+        </p>
+    </div>
+</section>
+
+<section class="module content">
+    <div class="parallax-container">
+        <h2>Tweets</h2>
+
+        <p>
+            <a class="twitter-timeline" href="https://twitter.com/IMstandup?ref_src=twsrc%5Etfw" data-tweet-limit="3">Tweets by IMstandup</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </p>
+    </div>
 </section>
 
     <!-- Optional JavaScript -->
@@ -223,6 +230,23 @@
         }
       })
       })
+
+
+
+        $(document).ready(function(){
+            let backgrounds = [
+                "https://i.imgur.com/oNvlQsr.jpg",
+                "https://i.imgur.com/PFWWPpl.jpg",
+                "https://i.imgur.com/8HYdihW.jpg",
+                "https://i.imgur.com/91wf4tl.jpg",
+                "https://i.imgur.com/8t1nJQC.jpg"
+            ]
+
+            let randBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+
+
+            $("body").css("background-image", `url(${randBg})`)
+        })
     
     </script>
 
