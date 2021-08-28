@@ -1,25 +1,77 @@
 <script>
 	import LockDropDown from "./LockDropDown.svelte"
 
+    const onLockChange = (e) => {
+        let checked = !!e.target.checked
+        let charType = e.target.dataset.nameFor
+
+        if ( charType ) dataObj[charType].locked = checked
+    }
+
 	let dataObj = {
-		archtype: [1,2,3],
-		flaws: [4,6,2],
-		adverbs: [3,2,1],
-		verts: [7,8,9],
-		roles: [9,8,7]
+		archtype: {
+            locked: false,
+            items: ["aaa","bbb","ccccc"]
+        },
+
+		flaws: {
+            locked: false,
+            items: ["aaa","ppppp","kkkkkkkkkkk"]
+        },
+
+		adverbs: {
+            locked: true,
+            items: ["bbbbb","wewewe","poioui"]
+        },
+
+		verts: {
+            locked: false,
+            items: ["ccccc","sdfgsd","zxczxc"],
+        },
+
+		roles: {
+            locked: false,
+            items: ["dddddd","fgfgfgfg","weyuywue"]
+        }
 	}
+
+    const shuffleArr = (array) => {
+        var currentIndex = array.length,  randomIndex;
+
+        while (currentIndex != 0) {
+
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+              array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
+    }
+
+    const shuffleData = () => {
+        for (const property in dataObj) {
+            if (!dataObj[property].locked) {
+                dataObj[property].items = shuffleArr(dataObj[property].items) 
+            }
+        }
+    }
 </script>
 
 <main>
 	<h1>Character Aid</h1>
 
-	<button>Generate</button>
+	<button on:click="{ shuffleData }" >Generate</button>
 
-	<LockDropDown name="Archtype" listItems="{ dataObj.archtype }" />
-	<LockDropDown name="Flaws" listItems="{ dataObj.flaws }" />
-	<LockDropDown name="Adverbs" listItems="{ dataObj.adverbs }"/>
-	<LockDropDown name="Verts" listItems="{ dataObj.verts }" />
-	<LockDropDown name="Roles" listItems="{ dataObj.roles }"/>
+	<LockDropDown name="Archtype" listItems="{ dataObj.archtype.items }" locked="{ dataObj.archtype.locked }" { onLockChange } />
+	<LockDropDown name="Flaws" listItems="{ dataObj.flaws.items }" locked="{ dataObj.flaws.locked }" { onLockChange } />
+	<LockDropDown name="Adverbs" listItems="{ dataObj.adverbs.items }" locked="{ dataObj.adverbs.locked }" { onLockChange }/>
+	<LockDropDown name="Verts" listItems="{ dataObj.verts.items }" locked="{ dataObj.verts.locked }" { onLockChange }/>
+	<LockDropDown name="Roles" listItems="{ dataObj.roles.items }" locked="{ dataObj.roles.locked}" { onLockChange } />
+
 </main>
 
 <style>
@@ -36,6 +88,10 @@
 		font-size: 4em;
 		font-weight: 100;
 	}
+
+    pre {
+        width: 50%;
+    }
 
 	@media (min-width: 640px) {
 		main {
