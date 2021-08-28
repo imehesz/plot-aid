@@ -1,5 +1,5 @@
 <script>
-	export let name
+	export let name="name"
     export let locked
 	export let listItems = []
     export let onLockChange = () => {} 

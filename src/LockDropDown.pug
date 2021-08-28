@@ -1,0 +1,22 @@
+script.
+    export let name
+    export let locked
+    export let listItems = []
+    export let onLockChange = () => {}
+
+div.lock-drop-down
+    fieldset
+        legend {name}
+
+        select
+            {#each listItems as option}
+              option { option }
+
+        span Locked
+
+        input(
+          "type"="checkbox" 
+          bind:checked="{locked}" 
+          on:click="{onLockChange}" 
+          data-name-for="{name.toLowerCase()}"
+        )

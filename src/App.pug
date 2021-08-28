@@ -1,0 +1,100 @@
+script.
+    import LockDropDown from "./LockDropDown.pug"
+
+    const onLockChange = (e) => {
+        let checked = !!e.target.checked
+        let charType = e.target.dataset.nameFor
+
+        if ( charType ) dataObj[charType].locked = checked
+    }
+
+    let dataObj = {
+        archtype: {
+            locked: true,
+            items: ["Addicted","Bigot","Cursed","Dishonest","Gullible"]
+        },
+        verts: {
+            locked: false,
+            items: ["Introverted","Extravorted"],
+        },
+        roles: {
+            locked: false,
+            items: ["Army Vet","Astronaut","Aunt","Babysitter","Baseball Player"]
+        }
+    }
+
+    const shuffleArr = (array) => {
+        var currentIndex = array.length,  randomIndex;
+
+        while (currentIndex != 0) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
+    }
+
+    const shuffleData = () => {
+        for (const property in dataObj) {
+            if (!dataObj[property].locked) {
+                dataObj[property].items = shuffleArr(dataObj[property].items) 
+            }
+        }
+    }
+
+main
+
+    h1 Character Aid
+
+    button(on:click="{shuffleData}") Generate
+
+    LockDropDown(
+      name="Archtype" 
+      listItems="{dataObj.archtype.items}"
+      locked="{dataObj.archtype.locked}"
+      {onLockChange}
+    )
+
+    LockDropDown(
+      name="Verts" 
+      listItems="{dataObj.verts.items}"
+      locked="{dataObj.verts.locked}"
+      {onLockChange}
+    )
+
+    LockDropDown(
+      name="Roles" 
+      listItems="{dataObj.roles.items}"
+      locked="{dataObj.roles.locked}"
+      {onLockChange}
+    )
+
+
+//    pre. 
+//        "{JSON.stringify(dataObj)}"
+
+style.
+    main {
+        text-align: center;
+        padding: 1em;
+        max-width: 240px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        color: #ff3e00;
+        text-transform: uppercase;
+        font-size: 4em;
+        font-weight: 100;
+    }
+
+    @media (min-width: 640px) {
+        main {
+            max-width: none;
+        }
+    }
