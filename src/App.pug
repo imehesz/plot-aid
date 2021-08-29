@@ -1,4 +1,5 @@
 script.
+    import U from "./Util.js"
     import LockDropDown from "./LockDropDown.pug"
 
     const onLockChange = (e) => {
@@ -10,39 +11,27 @@ script.
 
     let dataObj = {
         archtype: {
-            locked: true,
+            locked: false,
             items: ["Addicted","Bigot","Cursed","Dishonest","Gullible"]
         },
         verts: {
-            locked: false,
+            locked: true,
             items: ["Introverted","Extravorted"],
         },
         roles: {
             locked: false,
             items: ["Army Vet","Astronaut","Aunt","Babysitter","Baseball Player"]
+        },
+        "myers-briggs": {
+            locked: false,
+            items: ["Create New Ideas", "Enjoy Others", "Help Others", "Plan Things", "Be a Leader"]
         }
-    }
-
-    const shuffleArr = (array) => {
-        var currentIndex = array.length,  randomIndex;
-
-        while (currentIndex != 0) {
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-
-            // And swap it with the current element.
-            [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
-        }
-
-        return array;
     }
 
     const shuffleData = () => {
         for (const property in dataObj) {
             if (!dataObj[property].locked) {
-                dataObj[property].items = shuffleArr(dataObj[property].items) 
+                dataObj[property].items = U.ArrayUtil.shuffle(dataObj[property].items) 
             }
         }
     }
@@ -74,6 +63,14 @@ main
       {onLockChange}
     )
 
+    LockDropDown(
+      name="Myers-Briggs" 
+      listItems="{dataObj['myers-briggs'].items}"
+      locked="{dataObj['myers-briggs'].locked}"
+      {onLockChange}
+    )
+
+
 
 //    pre. 
 //        "{JSON.stringify(dataObj)}"
@@ -82,7 +79,6 @@ style.
     main {
         text-align: center;
         padding: 1em;
-        max-width: 240px;
         margin: 0 auto;
     }
 
