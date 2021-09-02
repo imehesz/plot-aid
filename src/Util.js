@@ -18,7 +18,24 @@ const Util = {
 
             return arr;
         }
+    },
+
+    ServiceUtil: {
+        loadData: async () => {
+            try {
+                let response = await fetch(MHX.dataUrl)
+
+                if(response.status == 200) {
+                    let json = await response.json()
+                    return json
+                }
+
+                throw new Error("meh, something went wrong", response.status)
+            } catch(err) {
+                console.error(err) // TypeError: failed to fetch
+            }
+        }
     }
-} 
+}
 
 module.exports = Util

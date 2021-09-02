@@ -7,10 +7,12 @@
 	<title>Character Aid</title>
 
 	<link rel='icon' type='image/png' href='/favicon.png'>
-	<link rel='stylesheet' href='/global.css'>
-	<link rel='stylesheet' href='/build/bundle.css'>
+	<link rel='stylesheet' href='./global.css'>
+    <link rel='stylesheet' href='./build/bundle.css?v={{version}}'>
 
-	<script defer src='/build/bundle.js'></script>
+    <script src='./libs/PubSub.js'></script>
+    <script src='./config.js?v={{version}}'></script>
+    <script defer src='./build/bundle.js?v={{version}}'></script>
 </head>
 
 <body>

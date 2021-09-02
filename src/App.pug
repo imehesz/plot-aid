@@ -2,80 +2,86 @@ script.
     import U from "./Util.js"
     import LockDropDown from "./LockDropDown.pug"
 
+    let isLoading = true
+    let listItems = []
+    let label
+    let locked
+
+    const rawData = U.ServiceUtil.loadData()
+    rawData.then((data) => {
+        console.log(data)
+        // TODO convert rawdata to plotcategory items
+        MHX.plotCategories.forEach((el) => {
+            for(let i=0; i<data.values.length; i++) {
+                if(i>=MHX.dataRowStartIdx && data.values[i][el.columnIdx])
+                    el.items.push(data.values[i][el.columnIdx])
+            }
+            el.items = el.items
+        })
+
+        isLoading = false
+
+        console.log(MHX.plotCategories)
+        MHX.plotCategories = MHX.plotCategories
+        PubSub.publish("Data.changed")
+    })
+
     const onLockChange = (e) => {
+        console.log("not implemented!", e)
+        return
         let checked = !!e.target.checked
         let charType = e.target.dataset.nameFor
 
         if ( charType ) dataObj[charType].locked = checked
     }
 
-    let dataObj = {
-        archtype: {
-            locked: false,
-            items: ["Addicted","Bigot","Cursed","Dishonest","Gullible"]
-        },
-        verts: {
-            locked: true,
-            items: ["Introverted","Extravorted"],
-        },
-        roles: {
-            locked: false,
-            items: ["Army Vet","Astronaut","Aunt","Babysitter","Baseball Player"]
-        },
-        "myers-briggs": {
-            locked: false,
-            items: ["Create New Ideas", "Enjoy Others", "Help Others", "Plan Things", "Be a Leader"]
-        }
-    }
+    const getCategories = () => MHX.plotCategories
 
     const shuffleData = () => {
-        for (const property in dataObj) {
-            if (!dataObj[property].locked) {
-                dataObj[property].items = U.ArrayUtil.shuffle(dataObj[property].items) 
-            }
-        }
+        MHX.plotCategories.forEach((el) => {
+            // TODO implement LOCK protection
+            el.items = U.ArrayUtil.shuffle(el.items)
+        })
+
+        PubSub.publish("Data.changed")
     }
 
-main
+    $: plotCategories = getCategories()
 
+
+span.loading("class"="{isLoading?'':'off'}") Loading ...  
+
+main
     h1 Character Aid
 
     button(on:click="{shuffleData}") Generate
 
-    LockDropDown(
-      name="Archtype" 
-      listItems="{dataObj.archtype.items}"
-      locked="{dataObj.archtype.locked}"
-      {onLockChange}
-    )
-
-    LockDropDown(
-      name="Verts" 
-      listItems="{dataObj.verts.items}"
-      locked="{dataObj.verts.locked}"
-      {onLockChange}
-    )
-
-    LockDropDown(
-      name="Roles" 
-      listItems="{dataObj.roles.items}"
-      locked="{dataObj.roles.locked}"
-      {onLockChange}
-    )
-
-    LockDropDown(
-      name="Myers-Briggs" 
-      listItems="{dataObj['myers-briggs'].items}"
-      locked="{dataObj['myers-briggs'].locked}"
-      {onLockChange}
-    )
-
-
-
-//    pre. 
-//        "{JSON.stringify(dataObj)}"
+    {#each plotCategories as category}
+      LockDropDown( 
+        name="{category.name}"
+        label="{category.label}"
+        bind:listItems="{category.items}"
+        locked="{category.locked}"
+        {onLockChange}
+      )
 
 style.
+    :global(.loading) {
+        position: absolute;
+        background-color: red;
+        top: 0;
+        left: 0;
+        width: 100%;
+        color: white;
+        font-weight: bolder;
+        padding: 10px;
+        text-align: center;
+    }
+
+    :global(.loading.off) {
+        display: none;
+    }
+
     main {
         text-align: center;
         padding: 1em;

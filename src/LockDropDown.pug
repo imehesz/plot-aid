@@ -4,9 +4,12 @@ script.
     export let listItems = []
     export let onLockChange = () => {}
 
+    PubSub.subscribe("Data.changed", () => listItems = listItems);
+
 div.lock-drop-down
     fieldset
-        legend {name}
+        legend {name} 
+            sup {listItems.length}
 
         input(
           "type"="checkbox" 
@@ -26,6 +29,10 @@ style.
         color: #ff3e00;
         font-size: 2em;
         font-weight: 100;
+    }
+
+    sup {
+        font-size: x-small;
     }
 
     fieldset {
