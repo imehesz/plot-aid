@@ -9,8 +9,6 @@ script.
 
     const rawData = U.ServiceUtil.loadData()
     rawData.then((data) => {
-        console.log(data)
-        // TODO convert rawdata to plotcategory items
         MHX.plotCategories.forEach((el) => {
             for(let i=0; i<data.values.length; i++) {
                 if(i>=MHX.dataRowStartIdx && data.values[i][el.columnIdx])
@@ -27,20 +25,24 @@ script.
     })
 
     const onLockChange = (e) => {
-        console.log("not implemented!", e)
-        return
         let checked = !!e.target.checked
         let charType = e.target.dataset.nameFor
 
-        if ( charType ) dataObj[charType].locked = checked
+        for(let i=0; i<MHX.plotCategories.length;i++) {
+            let el = MHX.plotCategories[i]
+
+            if(el.name.toLowerCase() == charType.toLowerCase()) {
+                el.locked = checked
+                break
+            }
+        }
     }
 
     const getCategories = () => MHX.plotCategories
 
     const shuffleData = () => {
         MHX.plotCategories.forEach((el) => {
-            // TODO implement LOCK protection
-            el.items = U.ArrayUtil.shuffle(el.items)
+            if(!el.locked) el.items = U.ArrayUtil.shuffle(el.items)
         })
 
         PubSub.publish("Data.changed")
