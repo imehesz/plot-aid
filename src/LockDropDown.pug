@@ -4,6 +4,12 @@ script.
     export let listItems = []
     export let onLockChange = () => {}
 
+    let selectedValue = ""
+
+    let onSelect = (e) => {
+        selectedValue = e.target.value
+    }
+
     PubSub.subscribe("Data.changed", () => listItems = listItems);
 
 div.lock-drop-down
@@ -18,12 +24,20 @@ div.lock-drop-down
           data-name-for="{name.toLowerCase()}"
         )
 
-        select
+        select(
+          data-select-value="{selectedValue}"
+          on:change="{onSelect}"
+        )
             {#each listItems as option}
               option { option }
 
 
 style.
+    .lock-drop-down {
+        flex-basis: 25%;
+        flex-grow: 1;
+    }
+
     legend {
         text-transform: uppercase;
         color: #ff3e00;
@@ -43,6 +57,7 @@ style.
         background-color: #eee;
         padding: 0;
         min-width: 90%;
+        max-width: 200px;
     }
 
     input {
@@ -52,7 +67,6 @@ style.
 
     @media (min-width: 640px) {
         select {
-            min-width: 50%;
-            padding: 20px 50px;
+            padding: 20px 5px;
         }
     }

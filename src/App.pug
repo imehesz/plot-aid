@@ -14,6 +14,7 @@ script.
                 if(i>=MHX.dataRowStartIdx && data.values[i][el.columnIdx])
                     el.items.push(data.values[i][el.columnIdx])
             }
+            el.selectedValue = el.items[0]
             el.items = el.items
         })
 
@@ -58,14 +59,18 @@ main
 
     button(on:click="{shuffleData}") Generate
 
-    {#each plotCategories as category}
-      LockDropDown( 
-        name="{category.name}"
-        label="{category.label}"
-        bind:listItems="{category.items}"
-        locked="{category.locked}"
-        {onLockChange}
-      )
+    div.category-wrapper
+        {#each plotCategories as category}
+          LockDropDown( 
+            name="{category.name}"
+            label="{category.label}"
+            bind:listItems="{category.items}"
+            locked="{category.locked}"
+            {onLockChange}
+        )
+
+    footer Made with &#9829; by 
+        a(href="https://IMstandup.com") IMstandup.com
 
 style.
     :global(.loading) {
@@ -90,11 +95,26 @@ style.
         margin: 0 auto;
     }
 
+    .printable {
+        margin: 20px;
+    }
+
     h1 {
         color: #ff3e00;
         text-transform: uppercase;
         font-size: 4em;
         font-weight: 100;
+    }
+
+    footer {
+        margin-top: 20px;
+        font-size: x-small;
+        color: #333;
+    }
+
+    .category-wrapper {
+        display: flex;
+        flex-wrap: wrap;
     }
 
     @media (min-width: 640px) {
