@@ -129,6 +129,9 @@
   <div class="parallax-container">
     <h2>About</h2>
     <p>Imre started out in Jacksonville (FL) as a stand-up comedian and VO Actor. He's been through several comedy contests and featuring mostly in Florida with his Dark-Style jokes.</p>
+    <p>
+        Also hosting the <a href="https://www.facebook.com/groups/HotBreathComedyNetwork" target="_blank">Write 10 After Dark</a> joke writing contest at 10pm EST on Thursdays on the <strong>Hot Breath Comedy Network</strong> (over 4000 members!).
+    </p>
   </div>
 </section>
 
@@ -137,7 +140,7 @@
     <h2>Show Dates / Calendar</h2>
     <p>You can always catch him at random open-mics around JAX (FL) or come see him on a date below ... </p>
     <p style="text-align:center;" class="calendar">
-      <iframe src="https://calendar.google.com/calendar/embed?src=r81ehf906m133dgb942k6m9kao%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" height="600" frameborder="0" scrolling="no"></iframe>
+      <iframe src="https://calendar.google.com/calendar/embed?src=r81ehf906m133dgb942k6m9kao%40group.calendar.google.com&ctz=America%2FNew_York&mode=AGENDA&bgcolor=%23ff1493&showTabs=0&showTitle=1&showNav=0&showDate=0&showCalendars=0&showPrint=0&color=red" style="border: 0" height="600" frameborder="0" scrolling="no"></iframe>
     </p>
   </div>
 </section>
@@ -236,17 +239,26 @@
 
 
         $(document).ready(function(){
+
             let backgrounds = [
-                "https://i.imgur.com/oNvlQsr.jpg",
-                "https://i.imgur.com/PFWWPpl.jpg",
-                "https://i.imgur.com/8HYdihW.jpg",
-                "https://i.imgur.com/91wf4tl.jpg",
-                "https://i.imgur.com/8t1nJQC.jpg"
+                "https://i.imgur.com/oNvlQsr.jpg"
             ]
 
-            let randBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+            $.get("https://sheets.googleapis.com/v4/spreadsheets/1H5h8zFTJUiDjd9ddo8qsJnqhYbEdpKH9Pj9-byY6fpE/values/Sheet1!A1:D500?key=AIzaSyBLySbKUYIzPNpscruuGrSpnA3VeZ1sdvk", (data) => {
+                if (data && data.values) {
+                    let tmpBgs = imxUTIL.getPropFromDriveData(data.values, "bgPics")
 
-            $("body").css("background-image", `url(${randBg}),url(${randBg})`)
+                    if( tmpBgs ) {
+                        if( tmpBgs.split("\n").length > 0 ) {
+                            console.log("bgPics", tmpBgs)
+                            backgrounds = tmpBgs.split("\n")
+                        }
+                    }
+
+                    let randBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+                    $("body").css("background-image", `url(${randBg}),url(${randBg})`)
+                }
+            })
         })
     
     </script>
